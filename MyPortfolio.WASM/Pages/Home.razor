@@ -32,16 +32,18 @@
 
 <article>
     <h1>My Portfolio</h1>
-    <ul>
+    <ul class="project-list">
         @foreach (var p in projects)
         {
-            <li>@p.Title</li>
-            <template>
-                @p.Requirements
-            </template>
+        <li class="entry">
+            <h4>@p.Title</h4>
+            <p>@p.Requirements</p>
+            <p>@p.Description</p>
+            <p>@p.CompletionDate</p>
+        </li>
         }
     </ul>
-    <br/>
+    <br />
 
 </article>
 
@@ -68,6 +70,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-
+        projects = await projectApi.GetProjectsAsync();
     }
 }

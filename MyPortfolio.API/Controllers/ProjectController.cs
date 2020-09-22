@@ -29,15 +29,17 @@ namespace MyPortfolio.API.Controllers
         {
             await repository.SaveProjectAsync(new Project
             {
-                Title = "Project 1",
-                 Requirements = "Demonstrate APIs with a database"
+                Title = "This Portfolio",
+                Requirements = "Demonstrate APIs with a database",
+                Description = "This Portfolio is built with a Blazor front end and a C# API"
             });
 
 
             await repository.SaveProjectAsync(new Project
             {
-                Title = "Project 2",
-                Requirements = "No, seriously. Do that."
+                Title = "Gutenburg Concordance",
+                Requirements = "Elixir",
+                Description = "This project was built in Elixir using GenServers"
             });
         }
 
