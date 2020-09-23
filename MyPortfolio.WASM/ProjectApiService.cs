@@ -24,9 +24,24 @@ namespace MyPortfolio.WASM
             return await client.GetFromJsonAsync<IEnumerable<Project>>("api/project");
         }
 
+        public async Task<Project> GetProjectByIdAsync(int id)
+        {
+            return await client.GetFromJsonAsync<Project>("api/project/getprojectbyid?id=" + id);
+        }
+
         public async Task AddProjectAsync(Project project)
         {
             await client.PostAsJsonAsync("api/project", project);
+        }
+
+        public async Task RemoveProjectAsync(Project project)
+        {
+            await client.PostAsJsonAsync("api/project/removeproject", project);
+        }
+
+        public async Task EditProjectAsync(Project project)
+        {
+            await client.PostAsJsonAsync("api/project/editproject", project);
         }
     }
 }

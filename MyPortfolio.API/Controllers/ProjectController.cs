@@ -25,6 +25,9 @@ namespace MyPortfolio.API.Controllers
         public async Task<List<Project>> Get() => await repository.Projects.ToListAsync();
 
         [HttpGet("[action]")]
+        public async Task<Project> GetProjectById(int id) => await repository.Projects.Where(p => p.Id == id).FirstOrDefaultAsync();
+
+        [HttpGet("[action]")]
         public async Task DefaultData()
         {
             await repository.SaveProjectAsync(new Project
@@ -47,6 +50,18 @@ namespace MyPortfolio.API.Controllers
         public async Task Post(Project project)
         {
             await repository.SaveProjectAsync(project);
+        }
+
+        [HttpPost("[action]")]
+        public async Task RemoveProject(Project project)
+        {
+            await repository.RemoveProjectAsync(project);
+        }
+
+        [HttpPost("[action]")]
+        public async Task EditProject(Project project)
+        {
+            await repository.EditProjectAsync(project);
         }
     }
 }

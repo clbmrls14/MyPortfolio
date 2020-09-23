@@ -1,0 +1,31 @@
+﻿@page "/blog/{projectId:int}"
+@inject MyPortfolio.WASM.ProjectApiService projectApi
+
+@using MyPortfolio.Shared
+
+<div>
+
+    <h1>@projectId</h1>
+    <h3>@currentProject.Title</h3>
+    <p>@currentProject.CompletionDate</p>
+    <p>@currentProject.Requirements</p>
+    <p>@currentProject.Description</p>
+
+
+    <NavLink href="@link">Edit</NavLink>
+</div>
+
+@code {
+    [Parameter]
+    public int projectId { get; set; }
+
+    private Project currentProject = new Project();
+    private string link = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        currentProject = await projectApi.GetProjectByIdAsync(projectId);
+        link = "blog/edit/" + projectId;
+    }
+
+}

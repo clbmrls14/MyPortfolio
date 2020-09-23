@@ -10,5 +10,7 @@ namespace MyPortfolio.API.Data
     {
         IQueryable<Project> Projects { get; }
         Task SaveProjectAsync(Project project);
+        Task RemoveProjectAsync(Project project);
+        Task EditProjectAsync(Project project);
     }
 }

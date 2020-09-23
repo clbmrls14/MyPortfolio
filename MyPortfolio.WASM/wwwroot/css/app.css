@@ -53,9 +53,16 @@ a:hover {
 
 .entry {
     background-color: #4D4195;
-    padding: 1em;
+    padding: 0.5em;
     border-radius: 15px;
     color: #E7E6E6;
+}
+
+.page-footer {
+    background-color: #E7E6E6;
+    font-style: italic;
+    font-weight: 200;
+    padding: 1em;
 }
 
 a {

@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPortfolio.API", "MyPortfolio.API\MyPortfolio.API.csproj", "{9C102994-6358-4AD6-A709-3E7744AE3310}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyPortfolio.API", "MyPortfolio.API\MyPortfolio.API.csproj", "{9C102994-6358-4AD6-A709-3E7744AE3310}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPortfolio.Shared", "MyPortfolio.Shared\MyPortfolio.Shared.csproj", "{AD771FB0-5237-4A70-9DC1-67AD9ED78D0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyPortfolio.Shared", "MyPortfolio.Shared\MyPortfolio.Shared.csproj", "{AD771FB0-5237-4A70-9DC1-67AD9ED78D0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPortfolio.WASM", "MyPortfolio.WASM\MyPortfolio.WASM.csproj", "{6BCAC109-8C54-44BD-ADAD-412CF483912A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyPortfolio.WASM", "MyPortfolio.WASM\MyPortfolio.WASM.csproj", "{6BCAC109-8C54-44BD-ADAD-412CF483912A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -22,5 +22,17 @@ namespace MyPortfolio.API.Data
             context.Projects.Add(project);
             await context.SaveChangesAsync();
         }
+
+        public async Task RemoveProjectAsync(Project project)
+        {
+            context.Projects.Remove(project);
+            await context.SaveChangesAsync();
+        }
+
+        public async Task EditProjectAsync(Project project)
+        {
+            context.Projects.Update(project);
+            await context.SaveChangesAsync();
+        }
     }
 }

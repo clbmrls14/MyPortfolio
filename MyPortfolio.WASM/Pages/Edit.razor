@@ -1,0 +1,43 @@
+﻿@page "/blog/edit/{projectId:int}"
+@inject MyPortfolio.WASM.ProjectApiService projectApi
+
+@using MyPortfolio.Shared
+
+<h3>Edit</h3>
+<input @bind-value="editedTitle"/>
+<input @bind-value="editedRequirements"/>
+<input @bind-value="editedDescription"/>
+<button @onclick="editProject">Edit</button>
+<NavLink href="@link">Go Back</NavLink>
+
+@code {
+    [Parameter]
+    public int projectId { get; set; }
+
+    private string editedTitle;
+    private string editedRequirements;
+    private string editedDescription;
+
+    private Project currentProject = new Project();
+    private string link = "";
+
+    private async Task editProject()
+    {
+        currentProject.Title = editedTitle;
+        currentProject.Requirements = editedRequirements;
+        currentProject.Description = editedDescription;
+        await projectApi.EditProjectAsync(currentProject);
+        currentProject = await projectApi.GetProjectByIdAsync(projectId);
+
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        currentProject = await projectApi.GetProjectByIdAsync(projectId);
+        link = "blog/" + projectId;
+        editedTitle = currentProject.Title;
+        editedRequirements = currentProject.Requirements;
+        editedDescription = currentProject.Requirements;
+    }
+}
