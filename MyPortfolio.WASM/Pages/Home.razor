@@ -32,7 +32,7 @@
     <ul class="project-list">
         @foreach (var p in projects)
         {
-            string link = $"/blog/{p.Id}";
+            string link = $"blog/{p.Id}";
             <li class="entry">
                 <NavLink href=@link><h4 style="color: #E7E6E6">@p.Title</h4></NavLink>
                 <p>@p.CompletionDate</p>
