@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
@@ -21,5 +22,7 @@ namespace MyPortfolio.Shared
 
         [JsonPropertyName("completion_date")]
         public DateTime CompletionDate { get; set; }
+
+        public List<Skill> RelevantSkills { get; set; }
     }
 }
