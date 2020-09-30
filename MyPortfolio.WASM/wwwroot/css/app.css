@@ -69,6 +69,13 @@ a {
     color: #4D4195;
 }
 
+.blog-title {
+    color: #E7E6E6;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
 .btn-primary {
     color: #fff;
     background-color: #1b6ec2;

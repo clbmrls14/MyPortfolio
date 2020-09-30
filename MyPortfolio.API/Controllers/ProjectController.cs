@@ -32,7 +32,7 @@ namespace MyPortfolio.API.Controllers
         {
             await repository.SaveProjectAsync(new Project
             {
-                Title = "This Portfolio",
+                Title = "Project Default",
                 Requirements = "Demonstrate APIs with a database",
                 Description = "This Portfolio is built with a Blazor front end and a C# API"
             });
@@ -40,9 +40,9 @@ namespace MyPortfolio.API.Controllers
 
             await repository.SaveProjectAsync(new Project
             {
-                Title = "Gutenburg Concordance",
-                Requirements = "Elixir",
-                Description = "This project was built in Elixir using GenServers"
+                Title = "Demo Project",
+                Requirements = "Demo a project",
+                Description = "This project was built as a demo!"
             });
         }
 
@@ -62,6 +62,12 @@ namespace MyPortfolio.API.Controllers
         public async Task EditProject(Project project)
         {
             await repository.EditProjectAsync(project);
+        }
+
+        [HttpPost("[action]")]
+        public async Task AssignSkill(ProjectSkill projectSkill)
+        {
+            await repository.AssignSkillAsync(projectSkill);
         }
     }
 }

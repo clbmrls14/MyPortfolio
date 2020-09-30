@@ -9,6 +9,5 @@ namespace MyPortfolio.Shared
         public int Id { get; set; }
         public string SkillTitle { get; set; }
         public List<Project> RelevantProjects { get; set; }
-
     }
 }
