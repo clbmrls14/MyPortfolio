@@ -43,5 +43,16 @@ namespace MyPortfolio.WASM
         {
             await client.PostAsJsonAsync("api/project/editproject", project);
         }
+
+        public async Task AssignAsync(string skillType, int projectId, string newName)
+        {
+            var assignBody = new AssignRequest
+            {
+                SkillType = skillType,
+                Name = newName,
+                ProjectId = projectId
+            };
+            await client.PostAsJsonAsync($"api/project/assign/", assignBody);
+        }
     }
 }

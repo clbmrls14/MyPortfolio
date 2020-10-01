@@ -15,7 +15,7 @@ namespace MyPortfolio.API.Data
         }
 
         public DbSet<Project> Projects { get; set; }
-        public DbSet<Skill> Skills { get; set; }
-        public DbSet<ProjectSkill> ProjectSkills { get; set; }
+        public DbSet<Language> Languages { get; set; }
+        public DbSet<ProjectLanguage> ProjectLanguages { get; set; }
     }
 }

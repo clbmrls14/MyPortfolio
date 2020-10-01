@@ -12,7 +12,6 @@ namespace MyPortfolio.API.Data
         Task SaveProjectAsync(Project project);
         Task RemoveProjectAsync(Project project);
         Task EditProjectAsync(Project project);
-        Task AddSkillAsync(Skill skill);
-        Task AssignSkillAsync(ProjectSkill projectSkill);
+        Task AssignSkillAsync(AssignRequest assignRequest);
     }
 }
