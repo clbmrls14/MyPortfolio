@@ -20,7 +20,6 @@ namespace MyPortfolio.WASM
 
         public async Task<IEnumerable<Project>> GetProjectsAsync()
         {
-            var response = await client.GetAsync("api/project");
             return await client.GetFromJsonAsync<IEnumerable<Project>>("api/project");
         }
 
@@ -42,6 +41,21 @@ namespace MyPortfolio.WASM
         public async Task<Project> GetProjectByIdAsync(int id)
         {
             return await client.GetFromJsonAsync<Project>("api/project/getprojectbyid?id=" + id);
+        }
+
+        public async Task<Language> GetLanguageByIdAsync(int id)
+        {
+            return await client.GetFromJsonAsync<Language>("api/project/getlanguagebyid?id=" + id);
+        }
+
+        public async Task<Platform> GetPlatformByIdAsync(int id)
+        {
+            return await client.GetFromJsonAsync<Platform>("api/project/getplatformbyid?id=" + id);
+        }
+
+        public async Task<Technology> GetTechnologyByIdAsync(int id)
+        {
+            return await client.GetFromJsonAsync<Technology>("api/project/gettechnologybyid?id=" + id);
         }
 
         public async Task AddProjectAsync(Project project)
@@ -83,6 +97,21 @@ namespace MyPortfolio.WASM
         public async Task<IEnumerable<Technology>> GetTechsByProjectAsync(int id)
         {
             return await client.GetFromJsonAsync<IEnumerable<Technology>>("api/project/gettechbyproduct?id=" + id);
+        }
+
+        public async Task<IEnumerable<Project>> GetProjectsByLanguageAsync(int id)
+        {
+            return await client.GetFromJsonAsync<IEnumerable<Project>>("api/project/getprojectbylanguage?id=" + id);
+        }
+
+        public async Task<IEnumerable<Project>> GetProjectsByPlatformAsync(int id)
+        {
+            return await client.GetFromJsonAsync<IEnumerable<Project>>("api/project/getprojectbyplatform?id=" + id);
+        }
+
+        public async Task<IEnumerable<Project>> GetProjectsByTechnologyAsync(int id)
+        {
+            return await client.GetFromJsonAsync<IEnumerable<Project>>("api/project/getprojectbytechnology?id=" + id);
         }
     }
 }

@@ -1,0 +1,29 @@
+﻿@page "/platforms/{platformId:int}"
+@inject MyPortfolio.WASM.ProjectApiService projectApi
+
+@using MyPortfolio.Shared
+
+<div>
+    <h2>@currentPlatform.Name</h2>
+    <h4>Relevant Projects:</h4>
+    <ul>
+        @foreach (var p in projects)
+        {
+            <li><a href="blog/@p.Id">@p.Title</a></li>
+        }
+    </ul>
+</div>
+
+@code {
+    [Parameter]
+    public int platformId { get; set; }
+
+    private Platform currentPlatform = new Platform();
+    private IEnumerable<Project> projects = new List<Project>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        currentPlatform = await projectApi.GetPlatformByIdAsync(platformId);
+        projects = await projectApi.GetProjectsByPlatformAsync(platformId);
+    }
+}

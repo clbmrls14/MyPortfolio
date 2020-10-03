@@ -14,21 +14,21 @@
         <ul>
             @foreach (var lang in languages)
             {
-                <li><a href="langauges/@lang.Id">@lang.Name</a></li>
+                <li><a href="/languages/@lang.Id">@lang.Name</a></li>
             }
         </ul>
         <h4>Platforms</h4>
         <ul>
             @foreach (var plat in platforms)
             {
-                <li><a href="platforms">@plat.Name</a></li>
+                <li><a href="/platforms">@plat.Name</a></li>
             }
         </ul>
         <h4>Technologies</h4>
         <ul>
             @foreach (var tech in technologies)
             {
-                <li><a href="technologies/@tech.Id">@tech.Name</a></li>
+                <li><a href="/technologies/@tech.Id">@tech.Name</a></li>
             }
         </ul>
     </div>

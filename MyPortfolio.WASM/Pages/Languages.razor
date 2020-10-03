@@ -1,0 +1,29 @@
+﻿@page "/languages/{languageId:int}"
+@inject MyPortfolio.WASM.ProjectApiService projectApi
+
+@using MyPortfolio.Shared
+
+<div>
+    <h2>@currentLanguage.Name</h2>
+    <h4>Relevant Projects:</h4>
+    <ul>
+        @foreach (var p in projects)
+        {
+            <li><a href="blog/@p.Id">@p.Title</a></li>
+        }
+    </ul>
+</div>
+
+@code {
+    [Parameter]
+    public int languageId { get; set; }
+
+    private Language currentLanguage = new Language();
+    private IEnumerable<Project> projects = new List<Project>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        currentLanguage = await projectApi.GetLanguageByIdAsync(languageId);
+        projects = await projectApi.GetProjectsByLanguageAsync(languageId);
+    }
+}

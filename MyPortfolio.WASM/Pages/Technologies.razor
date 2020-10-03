@@ -1,0 +1,30 @@
+﻿@page "/technologies/{techId:int}"
+@inject MyPortfolio.WASM.ProjectApiService projectApi
+
+@using MyPortfolio.Shared
+
+<div>
+    <h2>Technologies</h2>
+    <h4>Relevant Projects:</h4>
+    <ul>
+        @foreach (var p in projects)
+        {
+            <li><a href="blog/@p.Id">@p.Title</a></li>
+        }
+    </ul>
+</div>
+
+@code {
+    [Parameter]
+    public int techId { get; set; }
+
+    private Technology currentTech = new Technology();
+    private IEnumerable<Project> projects = new List<Project>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        currentTech = await projectApi.GetTechnologyByIdAsync(techId);
+        projects = await projectApi.GetProjectsByTechnologyAsync(techId);
+    }
+
+}
