@@ -1,14 +1,25 @@
-﻿@page "/blog/edit/{projectId:int}"
+﻿@page "/edit/{projectId:int}"
 @inject MyPortfolio.WASM.ProjectApiService projectApi
 
 @using MyPortfolio.Shared
 
-<h3>Edit</h3>
-<input @bind-value="editedTitle"/>
-<input @bind-value="editedRequirements"/>
-<input @bind-value="editedDescription"/>
-<button @onclick="editProject">Edit</button>
-<NavLink href="@link">Go Back</NavLink>
+<div>
+    <h3>Edit</h3>
+    <div>
+        <input @bind-value="editedTitle" />
+        <input @bind-value="editedRequirements" />
+        <input @bind-value="editedDescription" />
+        <button @onclick="editProject">Edit</button>
+    </div>
+
+    <div>
+        <h4>Assign Skill</h4>
+        <input @bind-value="newLanguage" placeholder="New Language..."/><button @onclick="assignLanguage">Add Language</button>
+    </div>
+
+    <a href="/blog/@projectId">Go Back</a>
+</div>
+
 
 @code {
     [Parameter]
@@ -18,8 +29,9 @@
     private string editedRequirements;
     private string editedDescription;
 
+    string newLanguage;
+
     private Project currentProject = new Project();
-    private string link = "";
 
     private async Task editProject()
     {
@@ -28,14 +40,16 @@
         currentProject.Description = editedDescription;
         await projectApi.EditProjectAsync(currentProject);
         currentProject = await projectApi.GetProjectByIdAsync(projectId);
-
     }
 
+    private async Task assignLanguage()
+    {
+        await projectApi.AssignAsync(MyPortfolio.Shared.Project.LanguageSkill, currentProject.Id, newLanguage);
+    }
 
     protected override async Task OnInitializedAsync()
     {
         currentProject = await projectApi.GetProjectByIdAsync(projectId);
-        link = "blog/" + projectId;
         editedTitle = currentProject.Title;
         editedRequirements = currentProject.Requirements;
         editedDescription = currentProject.Requirements;

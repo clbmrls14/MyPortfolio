@@ -54,5 +54,10 @@ namespace MyPortfolio.WASM
             };
             await client.PostAsJsonAsync($"api/project/assign/", assignBody);
         }
+
+        public async Task<IEnumerable<Language>> GetLanguagesByProjectAsync(int id)
+        {
+            return await client.GetFromJsonAsync<IEnumerable<Language>>("api/project/getlanguagebyproduct?id=" + id);
+        }
     }
 }

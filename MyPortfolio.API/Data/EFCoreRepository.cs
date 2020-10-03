@@ -38,6 +38,13 @@ namespace MyPortfolio.API.Data
         }
         // END PROJECT CRUD METHODS
         // ######
+        // BEGIN SKILL CRUD METHODS
+        public IQueryable<Language> Languages => context.Languages;
+
+        public IQueryable<ProjectLanguage> ProjectLanguages => context.ProjectLanguages;
+
+        // END SKILL CRUD METHODS
+        // ######
         // BEGIN ASSIGNREQUEST CRUD METHODS
         public async Task AssignSkillAsync(AssignRequest assignRequest)
         {

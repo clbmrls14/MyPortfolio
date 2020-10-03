@@ -1,8 +1,7 @@
-﻿@page "/project/{projectId:int}"
+﻿@page "/blog/{projectId:int}"
 @inject MyPortfolio.WASM.ProjectApiService projectApi
 
 @using MyPortfolio.Shared
-@using MyPortfolio.Shared.ViewModels
 
 <div>
 
@@ -12,38 +11,28 @@
     <p>@currentProject.Description</p>
 
     <div>
-        <input @bind-value="newLanguage" /><button @onclick="assignLanguage">Add</button>
+        <h4>Languages</h4>
         <ul>
-            @foreach (var lang in SelectedProject.Languages)
-            {
-                <li><a href="langauges/@lang.Id">@lang.Name</a></li>
-            }
+                @foreach (var lang in languages)
+                {
+                    <li><a href="langauges/@lang.Id">@lang.Name</a></li>
+                }
         </ul>
     </div>
-
-
-    <NavLink href="@link">Edit</NavLink>
+    <br/>
+    <a href="/edit/@projectId">Edit</a>
 </div>
 
 @code {
     [Parameter]
     public int projectId { get; set; }
-    string newLanguage;
-
-    public ProjectViewModel SelectedProject { get; set; } = new ProjectViewModel();
 
     private Project currentProject = new Project();
-    private string link = "";
-
-    private async Task assignLanguage()
-    {
-        await projectApi.AssignAsync(MyPortfolio.Shared.Project.LanguageSkill, SelectedProject.Id, newLanguage);
-    }
+    private IEnumerable<Language> languages = new List<Language>();
 
     protected override async Task OnInitializedAsync()
     {
         currentProject = await projectApi.GetProjectByIdAsync(projectId);
-        link = "blog/edit/" + projectId;
+        languages = await projectApi.GetLanguagesByProjectAsync(projectId);
     }
-
 }

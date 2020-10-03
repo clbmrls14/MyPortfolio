@@ -13,5 +13,7 @@ namespace MyPortfolio.API.Data
         Task RemoveProjectAsync(Project project);
         Task EditProjectAsync(Project project);
         Task AssignSkillAsync(AssignRequest assignRequest);
+        IQueryable<ProjectLanguage> ProjectLanguages { get; }
+        IQueryable<Language> Languages { get; }
     }
 }

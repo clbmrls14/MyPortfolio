@@ -32,9 +32,8 @@
     <ul class="project-list">
         @foreach (var p in projects)
         {
-            string link = $"blog/{p.Id}";
             <li class="entry">
-                <NavLink href=@link><h4 style="color: #E7E6E6">@p.Title</h4></NavLink>
+                <a href="/blog/@p.Id"><h4 style="color: #E7E6E6">@p.Title</h4></a>
                 <p>@p.CompletionDate</p>
                 <button @onclick="@(() => removeProject(p))" style="">Remove Project</button>
             </li>
@@ -82,11 +81,6 @@
     private async Task removeProject(Project project)
     {
         await projectApi.RemoveProjectAsync(project);
-        projects = await projectApi.GetProjectsAsync();
-    }
-
-    private async Task GetProjects()
-    {
         projects = await projectApi.GetProjectsAsync();
     }
 

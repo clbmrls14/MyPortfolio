@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyPortfolio.Shared;
 using MyPortfolio.API.Data;
-using MyPortfolio.Shared.ViewModels;
 
 namespace MyPortfolio.API.Controllers
 {
@@ -23,17 +22,28 @@ namespace MyPortfolio.API.Controllers
         }
 
         [HttpGet()]
-        public async Task<List<ProjectViewModel>> Get()
+        public async Task<List<Project>> Get()
         {
             return await repository.Projects
                 .Include(p => p.ProjectLanguages)
                     .ThenInclude(pc => pc.Language)
-                .Select(p => new ProjectViewModel(p))
                 .ToListAsync();
         }
 
         [HttpGet("[action]")]
+        public async Task<List<Language>> GetLanguagesAsync()
+        {
+            return await repository.Languages.ToListAsync();
+        }
+
+        [HttpGet("[action]")]
         public async Task<Project> GetProjectById(int id) => await repository.Projects.Where(p => p.Id == id).FirstOrDefaultAsync();
+
+        [HttpGet("[action]")]
+        public async Task<List<Language>> GetLanguageByProduct(int id)
+        {
+            return await repository.ProjectLanguages.Where(pl => pl.ProjectId == id).Select(l => l.Language).ToListAsync();
+        }
 
         [HttpGet("[action]")]
         public async Task DefaultData()
@@ -72,11 +82,10 @@ namespace MyPortfolio.API.Controllers
             await repository.EditProjectAsync(project);
         }
 
-        [HttpPost("[action]/{categoryType")]
+        [HttpPost("[action]")]
         public async Task Assign(AssignRequest assignRequest)
         {
             await repository.AssignSkillAsync(assignRequest);
-            
         }
     }
 }
