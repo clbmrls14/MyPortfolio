@@ -9,21 +9,21 @@
     <ui>
         @foreach (var lang in languages)
         {
-            <li><a href="/languages/@lang.Id">@lang.Name</a></li>
+            <li><a href="languages/@lang.Id">@lang.Name</a></li>
         }
     </ui>
     <h5>Platforms</h5>
     <ui>
         @foreach (var plat in platforms)
         {
-            <li><a href="/platforms/@plat.Id">@plat.Name</a></li>
+            <li><a href="platforms/@plat.Id">@plat.Name</a></li>
         }
     </ui>
     <h5>Technologies</h5>
     <ui>
         @foreach (var tech in technologies)
         {
-            <li><a href="/technologies/@tech.Id">@tech.Name</a></li>
+            <li><a href="technologies/@tech.Id">@tech.Name</a></li>
         }
     </ui>
 </div>
