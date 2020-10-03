@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MyPortfolio.Shared
+﻿namespace MyPortfolio.Shared
 {
     public class AssignRequest
     {

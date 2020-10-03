@@ -4,7 +4,6 @@
 @using MyPortfolio.Shared
 
 <div>
-
     <h1 class="blog-title">@currentProject.Title</h1>
     <p>@currentProject.CompletionDate</p>
     <p>@currentProject.Requirements</p>
@@ -13,10 +12,24 @@
     <div>
         <h4>Languages</h4>
         <ul>
-                @foreach (var lang in languages)
-                {
-                    <li><a href="langauges/@lang.Id">@lang.Name</a></li>
-                }
+            @foreach (var lang in languages)
+            {
+                <li><a href="langauges/@lang.Id">@lang.Name</a></li>
+            }
+        </ul>
+        <h4>Platforms</h4>
+        <ul>
+            @foreach (var plat in platforms)
+            {
+                <li><a href="platforms">@plat.Name</a></li>
+            }
+        </ul>
+        <h4>Technologies</h4>
+        <ul>
+            @foreach (var tech in technologies)
+            {
+                <li><a href="technologies/@tech.Id">@tech.Name</a></li>
+            }
         </ul>
     </div>
     <br/>
@@ -29,10 +42,14 @@
 
     private Project currentProject = new Project();
     private IEnumerable<Language> languages = new List<Language>();
+    private IEnumerable<Platform> platforms = new List<Platform>();
+    private IEnumerable<Technology> technologies = new List<Technology>();
 
     protected override async Task OnInitializedAsync()
     {
         currentProject = await projectApi.GetProjectByIdAsync(projectId);
         languages = await projectApi.GetLanguagesByProjectAsync(projectId);
+        platforms = await projectApi.GetPlatformsByProjectAsync(projectId);
+        technologies = await projectApi.GetTechsByProjectAsync(projectId);
     }
 }

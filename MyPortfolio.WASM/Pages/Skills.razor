@@ -1,0 +1,49 @@
+﻿@page "/skills"
+@inject MyPortfolio.WASM.ProjectApiService projectApi
+
+@using MyPortfolio.Shared
+
+<div>
+    <h3>My Skills</h3>
+    <div>
+        <h5>Languages</h5>
+        <ui>
+            @foreach (var lang in languages)
+            {
+                <li><a href="langauges/@lang.Id">@lang.Name</a></li>
+            }
+        </ui>
+    </div>
+    <div>
+        <h5>Platforms</h5>
+        <ui>
+            @foreach (var plat in platforms)
+            {
+                <li><a href="platforms/@plat.Id">@plat.Name</a></li>
+            }
+        </ui>
+    </div>
+    <div>
+        <h5>Technologies</h5>
+        <ui>
+            @foreach (var tech in technologies)
+            {
+                <li><a href="technologies/@tech.Id">@tech.Name</a></li>
+            }
+        </ui>
+    </div>
+</div>
+
+
+@code {
+    private IEnumerable<Language> languages = new List<Language>();
+    private IEnumerable<Platform> platforms = new List<Platform>();
+    private IEnumerable<Technology> technologies = new List<Technology>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        languages = await projectApi.GetLanguagesAsync();
+        platforms = await projectApi.GetPlatformsAsync();
+        technologies = await projectApi.GetTechnologiesAsync();
+    }
+}

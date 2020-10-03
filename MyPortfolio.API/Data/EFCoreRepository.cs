@@ -40,9 +40,12 @@ namespace MyPortfolio.API.Data
         // ######
         // BEGIN SKILL CRUD METHODS
         public IQueryable<Language> Languages => context.Languages;
+        public IQueryable<Platform> Platforms => context.Platforms;
+        public IQueryable<Technology> Technologies => context.Technologies;
 
         public IQueryable<ProjectLanguage> ProjectLanguages => context.ProjectLanguages;
-
+        public IQueryable<ProjectPlatform> ProjectPlatforms => context.ProjectPlatforms;
+        public IQueryable<ProjectTechnology> ProjectTechnologies => context.ProjectTechnologies;
         // END SKILL CRUD METHODS
         // ######
         // BEGIN ASSIGNREQUEST CRUD METHODS
@@ -58,12 +61,44 @@ namespace MyPortfolio.API.Data
                         context.Languages.Add(language);
                         await context.SaveChangesAsync();
                     }
-                    var lc = new ProjectLanguage
+                    var pl = new ProjectLanguage
                     {
                         ProjectId = assignRequest.ProjectId,
                         LanguageId = language.Id
                     };
-                    context.ProjectLanguages.Add(lc);
+                    context.ProjectLanguages.Add(pl);
+                    await context.SaveChangesAsync();
+                    break;
+                case Project.PlatformSkill:
+                    var platform = await context.Platforms.FirstOrDefaultAsync(l => l.Name == assignRequest.Name);
+                    if (platform == null)
+                    {
+                        platform = new Platform { Name = assignRequest.Name };
+                        context.Platforms.Add(platform);
+                        await context.SaveChangesAsync();
+                    }
+                    var pp = new ProjectPlatform
+                    {
+                        ProjectId = assignRequest.ProjectId,
+                        PlatformId = platform.Id
+                    };
+                    context.ProjectPlatforms.Add(pp);
+                    await context.SaveChangesAsync();
+                    break;
+                case Project.TechnologySkill:
+                    var technology = await context.Technologies.FirstOrDefaultAsync(l => l.Name == assignRequest.Name);
+                    if (technology == null)
+                    {
+                        technology = new Technology { Name = assignRequest.Name };
+                        context.Technologies.Add(technology);
+                        await context.SaveChangesAsync();
+                    }
+                    var pt = new ProjectTechnology
+                    {
+                        ProjectId = assignRequest.ProjectId,
+                        TechnologyId = technology.Id
+                    };
+                    context.ProjectTechnologies.Add(pt);
                     await context.SaveChangesAsync();
                     break;
                 default:

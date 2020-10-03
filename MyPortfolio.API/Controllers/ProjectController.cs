@@ -31,19 +31,25 @@ namespace MyPortfolio.API.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<List<Language>> GetLanguagesAsync()
-        {
-            return await repository.Languages.ToListAsync();
-        }
+        public async Task<List<Language>> GetLanguages() => await repository.Languages.ToListAsync();
+
+        [HttpGet("[action]")]
+        public async Task<List<Platform>> GetPlatforms() => await repository.Platforms.ToListAsync();
+
+        [HttpGet("[action]")]
+        public async Task<List<Technology>> GetTechnologies() => await repository.Technologies.ToListAsync();
 
         [HttpGet("[action]")]
         public async Task<Project> GetProjectById(int id) => await repository.Projects.Where(p => p.Id == id).FirstOrDefaultAsync();
 
         [HttpGet("[action]")]
-        public async Task<List<Language>> GetLanguageByProduct(int id)
-        {
-            return await repository.ProjectLanguages.Where(pl => pl.ProjectId == id).Select(l => l.Language).ToListAsync();
-        }
+        public async Task<List<Language>> GetLanguageByProduct(int id) => await repository.ProjectLanguages.Where(pl => pl.ProjectId == id).Select(l => l.Language).ToListAsync();
+
+        [HttpGet("[action]")]
+        public async Task<List<Platform>> GetPlatformByProduct(int id) => await repository.ProjectPlatforms.Where(pl => pl.ProjectId == id).Select(l => l.Platform).ToListAsync();
+
+        [HttpGet("[action]")]
+        public async Task<List<Technology>> GetTechByProduct(int id) => await repository.ProjectTechnologies.Where(pl => pl.ProjectId == id).Select(l => l.Technology).ToListAsync();
 
         [HttpGet("[action]")]
         public async Task DefaultData()
@@ -65,27 +71,15 @@ namespace MyPortfolio.API.Controllers
         }
 
         [HttpPost()]
-        public async Task Post(Project project)
-        {
-            await repository.SaveProjectAsync(project);
-        }
+        public async Task Post(Project project) => await repository.SaveProjectAsync(project);
 
         [HttpPost("[action]")]
-        public async Task RemoveProject(Project project)
-        {
-            await repository.RemoveProjectAsync(project);
-        }
+        public async Task RemoveProject(Project project) => await repository.RemoveProjectAsync(project);
 
         [HttpPost("[action]")]
-        public async Task EditProject(Project project)
-        {
-            await repository.EditProjectAsync(project);
-        }
+        public async Task EditProject(Project project) => await repository.EditProjectAsync(project);
 
         [HttpPost("[action]")]
-        public async Task Assign(AssignRequest assignRequest)
-        {
-            await repository.AssignSkillAsync(assignRequest);
-        }
+        public async Task Assign(AssignRequest assignRequest) => await repository.AssignSkillAsync(assignRequest);
     }
 }

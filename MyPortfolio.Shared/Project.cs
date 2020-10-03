@@ -26,7 +26,6 @@ namespace MyPortfolio.Shared
 
         [JsonPropertyName("completion_date")]
         public DateTime CompletionDate { get; set; }
-
         public List<ProjectLanguage> ProjectLanguages { get; set; }
     }
 }

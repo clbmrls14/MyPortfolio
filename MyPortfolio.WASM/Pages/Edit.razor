@@ -14,7 +14,9 @@
 
     <div>
         <h4>Assign Skill</h4>
-        <input @bind-value="newLanguage" placeholder="New Language..."/><button @onclick="assignLanguage">Add Language</button>
+        <input @bind-value="newLang" placeholder="New Language..." /><button @onclick="assignLanguage">Add Language</button>
+        <input @bind-value="newPlat" placeholder="New Platform..." /><button @onclick="assignPlatform">Add Platform</button>
+        <input @bind-value="newTech" placeholder="New Technology..." /><button @onclick="assignTechnology">Add Technology</button>
     </div>
 
     <a href="/blog/@projectId">Go Back</a>
@@ -29,7 +31,9 @@
     private string editedRequirements;
     private string editedDescription;
 
-    string newLanguage;
+    private string newLang;
+    private string newPlat;
+    private string newTech;
 
     private Project currentProject = new Project();
 
@@ -42,10 +46,11 @@
         currentProject = await projectApi.GetProjectByIdAsync(projectId);
     }
 
-    private async Task assignLanguage()
-    {
-        await projectApi.AssignAsync(MyPortfolio.Shared.Project.LanguageSkill, currentProject.Id, newLanguage);
-    }
+    private async Task assignLanguage() => await projectApi.AssignAsync(MyPortfolio.Shared.Project.LanguageSkill, currentProject.Id, newLang);
+    
+    private async Task assignPlatform() => await projectApi.AssignAsync(MyPortfolio.Shared.Project.PlatformSkill, currentProject.Id, newPlat);
+    
+    private async Task assignTechnology() => await projectApi.AssignAsync(MyPortfolio.Shared.Project.TechnologySkill, currentProject.Id, newTech);
 
     protected override async Task OnInitializedAsync()
     {

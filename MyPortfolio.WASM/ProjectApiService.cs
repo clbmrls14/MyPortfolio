@@ -24,6 +24,21 @@ namespace MyPortfolio.WASM
             return await client.GetFromJsonAsync<IEnumerable<Project>>("api/project");
         }
 
+        public async Task<IEnumerable<Language>> GetLanguagesAsync()
+        {
+            return await client.GetFromJsonAsync<IEnumerable<Language>>("api/project/getlanguages");
+        }
+
+        public async Task<IEnumerable<Platform>> GetPlatformsAsync()
+        {
+            return await client.GetFromJsonAsync<IEnumerable<Platform>>("api/project/getplatforms");
+        }
+
+        public async Task<IEnumerable<Technology>> GetTechnologiesAsync()
+        {
+            return await client.GetFromJsonAsync<IEnumerable<Technology>>("api/project/gettechnologies");
+        }
+
         public async Task<Project> GetProjectByIdAsync(int id)
         {
             return await client.GetFromJsonAsync<Project>("api/project/getprojectbyid?id=" + id);
@@ -58,6 +73,16 @@ namespace MyPortfolio.WASM
         public async Task<IEnumerable<Language>> GetLanguagesByProjectAsync(int id)
         {
             return await client.GetFromJsonAsync<IEnumerable<Language>>("api/project/getlanguagebyproduct?id=" + id);
+        }
+
+        public async Task<IEnumerable<Platform>> GetPlatformsByProjectAsync(int id)
+        {
+            return await client.GetFromJsonAsync<IEnumerable<Platform>>("api/project/getplatformbyproduct?id=" + id);
+        }
+
+        public async Task<IEnumerable<Technology>> GetTechsByProjectAsync(int id)
+        {
+            return await client.GetFromJsonAsync<IEnumerable<Technology>>("api/project/gettechbyproduct?id=" + id);
         }
     }
 }
