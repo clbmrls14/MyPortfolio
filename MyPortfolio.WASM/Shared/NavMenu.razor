@@ -1,7 +1,5 @@
 ﻿@inject MyPortfolio.WASM.ProjectApiService projectApi
 
-@using MyPortfolio.Shared
-
 <div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">MyPortfolio.WASM</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -17,8 +15,8 @@
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="mission">
-                <span class="oi oi-plus" aria-hidden="true"></span> Mission Statement
+            <NavLink class="nav-link" href="resume">
+                <span class="oi oi-plus" aria-hidden="true"></span> My Resume
             </NavLink>
         </li>
         <li class="nav-item px-3">
@@ -27,18 +25,6 @@
             </NavLink>
         </li>
     </ul>
-    @*<br/>
-    <h3 style="color: whitesmoke; text-align: center;">My Projects</h3>
-    <ul class="nav flex-column">
-        @foreach (var p in projects)
-        {
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="resume">
-                <span class="oi" aria-hidden="true">@p.Title</span> 
-            </NavLink>
-        </li>
-    }
-    </ul>*@
 </div>
 
 @code {
@@ -50,10 +36,4 @@
     {
         collapseNavMenu = !collapseNavMenu;
     }
-
-    //private IEnumerable<Project> projects = new List<Project>();
-    //protected override async Task OnInitializedAsync()
-    //{
-    //    projects = await projectApi.GetProjectsAsync();
-    //}
 }
