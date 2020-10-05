@@ -6,10 +6,15 @@
 <div>
     <h3>Edit</h3>
     <div>
-        <input @bind-value="editedTitle" />
-        <input @bind-value="editedRequirements" />
-        <input @bind-value="editedDescription" />
-        <button @onclick="editProject">Edit</button>
+        <div class="input-field">
+            <input @bind-value="editedTitle" />
+        </div>
+        <div class="input-field">
+            <input @bind-value="editedRequirements" />
+        </div>
+        <div class="input-field">
+            <textarea @bind="editedDescription" />
+        </div>
     </div>
 
     <div>

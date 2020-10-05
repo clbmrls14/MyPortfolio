@@ -5,11 +5,24 @@
 
 <div>
     <h3>NewProject</h3>
-    <input @bind-value="newTitle" placeholder="Project Title" />
-    <input @bind-value="newRequirements" placeholder="Project Requirements" />
-    <input @bind-value="newDescription" placeholder="Project Description" />
-    <button @onclick="addProject">Add Project</button>
+    <div class="input-field">
+        <input @bind-value="newTitle" placeholder="Project Title" />
+    </div>
+    <div class="input-field">
+        <input @bind-value="newRequirements" placeholder="Project Requirements" />
+    </div>
+    <div>
+        <textarea @bind="newDescription" placeholder="Project Description" />
+    </div>
+    <div class="input-field">
+        <button @onclick="addProject">Add Project</button>
+    </div>
 </div>
+<!-- Begin Footer-->
+<div class="page-footer">
+    <p>&copy; Caleb Morales, 2020</p>
+</div>
+<!-- End Footer-->
 
 @code {
     private string newTitle;
