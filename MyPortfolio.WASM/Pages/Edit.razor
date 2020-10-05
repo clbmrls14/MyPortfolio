@@ -15,16 +15,19 @@
         <div class="input-field">
             <textarea @bind="editedDescription" />
         </div>
+        <div>
+            <button @onclick="editProject">Submit Changes</button>
+        </div>
     </div>
 
-    <div>
-        <h4>Assign Skill</h4>
-        <input @bind-value="newLang" placeholder="New Language..." /><button @onclick="assignLanguage">Add Language</button>
-        <input @bind-value="newPlat" placeholder="New Platform..." /><button @onclick="assignPlatform">Add Platform</button>
-        <input @bind-value="newTech" placeholder="New Technology..." /><button @onclick="assignTechnology">Add Technology</button>
-    </div>
+        <div>
+            <h4>Assign Skill</h4>
+            <input @bind-value="newLang" placeholder="New Language..." /><button @onclick="assignLanguage">Add Language</button>
+            <input @bind-value="newPlat" placeholder="New Platform..." /><button @onclick="assignPlatform">Add Platform</button>
+            <input @bind-value="newTech" placeholder="New Technology..." /><button @onclick="assignTechnology">Add Technology</button>
+        </div>
 
-    <a href="blog/@projectId">Go Back</a>
+        <a href="blog/@projectId">Go Back</a>
 </div>
 
 
