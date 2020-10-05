@@ -1,0 +1,31 @@
+﻿@page "/newproject"
+@inject MyPortfolio.WASM.ProjectApiService projectApi
+
+@using MyPortfolio.Shared
+
+<div>
+    <h3>NewProject</h3>
+    <input @bind-value="newTitle" placeholder="Project Title" />
+    <input @bind-value="newRequirements" placeholder="Project Requirements" />
+    <input @bind-value="newDescription" placeholder="Project Description" />
+    <button @onclick="addProject">Add Project</button>
+</div>
+
+@code {
+    private string newTitle;
+    private string newRequirements;
+    private string newDescription;
+
+    private async Task addProject()
+    {
+        var project = new Project
+        {
+            Title = newTitle,
+            Requirements = newRequirements,
+            Description = newDescription,
+            CompletionDate = DateTime.Now
+        };
+        await projectApi.AddProjectAsync(project);
+    }
+
+}

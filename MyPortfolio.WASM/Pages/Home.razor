@@ -46,10 +46,7 @@
 <!-- Begin Form (Temporary)-->
 <div>
     <h3>Add a Project</h3>
-    <input @bind-value="newTitle" placeholder="Project Title" />
-    <input @bind-value="newRequirements" placeholder="Project Requirements" />
-    <input @bind-value="newDescription" placeholder="Project Description" />
-    <button @onclick="addProject">Add Project</button>
+    
 </div>
 <!-- End Form (Temoporary) -->
 <!-- Begin Footer-->
@@ -59,23 +56,7 @@
 <!-- End Footer-->
 
 @code {
-    private string newTitle;
-    private string newRequirements;
-    private string newDescription;
     private IEnumerable<Project> projects = new List<Project>();
-
-    private async Task addProject()
-    {
-        var project = new Project
-        {
-            Title = newTitle,
-            Requirements = newRequirements,
-            Description = newDescription,
-            CompletionDate = DateTime.Now
-        };
-        await projectApi.AddProjectAsync(project);
-        projects = await projectApi.GetProjectsAsync();
-    }
 
     private async Task removeProject(Project project)
     {
