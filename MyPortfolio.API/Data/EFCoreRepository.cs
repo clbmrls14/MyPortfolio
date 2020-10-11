@@ -31,6 +31,7 @@ namespace MyPortfolio.API.Data
             {
                 newProject.Slug = newProject.Title.ToSlug();
                 newProject.Requirements = project.Requirements;
+                newProject.Description = project.Description;
                 newProject.Title = project.Title;
                 context.Projects.Update(newProject);
             }

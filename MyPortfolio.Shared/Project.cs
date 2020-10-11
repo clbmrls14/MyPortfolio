@@ -15,6 +15,7 @@ namespace MyPortfolio.Shared
             this.Id = project.Id;
             this.Title = project.Title;
             this.Requirements = project.Requirements;
+            this.Description = project.Description;
             this.Slug = project.Slug;
         }
 
