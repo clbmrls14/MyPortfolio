@@ -1,4 +1,4 @@
-﻿@page "/platforms/{platformId:int}"
+﻿@page "/platforms/{slug}"
 @inject MyPortfolio.WASM.ProjectApiService projectApi
 
 @using MyPortfolio.Shared
@@ -9,7 +9,7 @@
     <ul>
         @foreach (var p in projects)
         {
-            <li><a href="blog/@p.Id">@p.Title</a></li>
+            <li><a href="blog/@p.Slug">@p.Title</a></li>
         }
     </ul>
 </div>
@@ -18,12 +18,15 @@
     [Parameter]
     public int platformId { get; set; }
 
+    [Parameter]
+    public string Slug { get; set; }
+
     private Platform currentPlatform = new Platform();
     private IEnumerable<Project> projects = new List<Project>();
 
     protected override async Task OnInitializedAsync()
     {
-        currentPlatform = await projectApi.GetPlatformByIdAsync(platformId);
-        projects = await projectApi.GetProjectsByPlatformAsync(platformId);
+        currentPlatform = await projectApi.GetPlatformBySlugAsync(Slug);
+        projects = await projectApi.GetProjectsByPlatformAsync(currentPlatform.Id);
     }
 }

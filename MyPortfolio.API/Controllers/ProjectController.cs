@@ -52,11 +52,20 @@ namespace MyPortfolio.API.Controllers
         [HttpGet("[action]")]
         public async Task<Language> GetLanguageById(int id) => await repository.Languages.Where(l => l.Id == id).FirstOrDefaultAsync();
 
+        [HttpGet("[action]/{slug}")]
+        public async Task<Language> GetLanguageBySlug(string slug) => await repository.Languages.Where(l => l.Slug == slug).FirstOrDefaultAsync();
+
         [HttpGet("[action]")]
         public async Task<Platform> GetPlatformById(int id) => await repository.Platforms.Where(p => p.Id == id).FirstOrDefaultAsync();
 
+        [HttpGet("[action]/{slug}")]
+        public async Task<Platform> GetPlatformBySlug(string slug) => await repository.Platforms.Where(p => p.Slug == slug).FirstOrDefaultAsync();
+
         [HttpGet("[action]")]
         public async Task<Technology> GetTechnologyById(int id) => await repository.Technologies.Where(t => t.Id == id).FirstOrDefaultAsync();
+
+        [HttpGet("[action]/{slug}")]
+        public async Task<Technology> GetTechnologyBySlug(string slug) => await repository.Technologies.Where(t => t.Slug == slug).FirstOrDefaultAsync();
 
         // GET PROJECTS FROM SKILLS
         [HttpGet("[action]")]

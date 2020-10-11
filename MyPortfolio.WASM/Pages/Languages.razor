@@ -1,4 +1,4 @@
-﻿@page "/languages/{languageId:int}"
+﻿@page "/languages/{slug}"
 @inject MyPortfolio.WASM.ProjectApiService projectApi
 
 @using MyPortfolio.Shared
@@ -9,7 +9,7 @@
     <ul>
         @foreach (var p in projects)
         {
-            <li><a href="blog/@p.Id">@p.Title</a></li>
+            <li><a href="blog/@p.Slug">@p.Title</a></li>
         }
     </ul>
 </div>
@@ -21,14 +21,25 @@
 
 @code {
     [Parameter]
-    public int languageId { get; set; }
+    public int LanguageId { get; set; }
+
+    [Parameter]
+    public string Slug { get; set; }
 
     private Language currentLanguage = new Language();
     private IEnumerable<Project> projects = new List<Project>();
 
+    async Task refreshAsync()
+    {
+        currentLanguage = await projectApi.GetLanguageBySlugAsync(Slug);
+        projects = await projectApi.GetProjectsByLanguageAsync(currentLanguage.Id);
+    }
+
     protected override async Task OnInitializedAsync()
     {
-        currentLanguage = await projectApi.GetLanguageByIdAsync(languageId);
-        projects = await projectApi.GetProjectsByLanguageAsync(languageId);
+        if (LanguageId == 0 && Slug == null)
+            return;
+
+        await refreshAsync();
     }
 }

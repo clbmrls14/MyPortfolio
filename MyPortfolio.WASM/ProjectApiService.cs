@@ -48,14 +48,29 @@ namespace MyPortfolio.WASM
             return await client.GetFromJsonAsync<Project>("api/project/getprojectbyid?id=" + id);
         }
 
+        public async Task<Language> GetLanguageBySlugAsync(string slug)
+        {
+            return await client.GetFromJsonAsync<Language>($"api/project/getlanguagebyslug/{slug}");
+        }
+
         public async Task<Language> GetLanguageByIdAsync(int id)
         {
             return await client.GetFromJsonAsync<Language>("api/project/getlanguagebyid?id=" + id);
         }
 
+        public async Task<Platform> GetPlatformBySlugAsync(string slug)
+        {
+            return await client.GetFromJsonAsync<Platform>($"api/project/getplatformbyslug/{slug}");
+        }
+
         public async Task<Platform> GetPlatformByIdAsync(int id)
         {
             return await client.GetFromJsonAsync<Platform>("api/project/getplatformbyid?id=" + id);
+        }
+
+        public async Task<Technology> GetTechnologyBySlugAsync(string slug)
+        {
+            return await client.GetFromJsonAsync<Technology>($"api/project/gettechnologybyslug/{slug}");
         }
 
         public async Task<Technology> GetTechnologyByIdAsync(int id)

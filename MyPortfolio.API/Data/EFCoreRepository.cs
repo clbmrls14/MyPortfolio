@@ -70,6 +70,7 @@ namespace MyPortfolio.API.Data
                     if (language == null)
                     {
                         language = new Language { Name = assignRequest.Name };
+                        language.Slug = language.Name;
                         context.Languages.Add(language);
                         await context.SaveChangesAsync();
                     }
@@ -86,6 +87,7 @@ namespace MyPortfolio.API.Data
                     if (platform == null)
                     {
                         platform = new Platform { Name = assignRequest.Name };
+                        platform.Slug = platform.Name;
                         context.Platforms.Add(platform);
                         await context.SaveChangesAsync();
                     }
@@ -102,6 +104,7 @@ namespace MyPortfolio.API.Data
                     if (technology == null)
                     {
                         technology = new Technology { Name = assignRequest.Name };
+                        technology.Slug = technology.Name;
                         context.Technologies.Add(technology);
                         await context.SaveChangesAsync();
                     }
