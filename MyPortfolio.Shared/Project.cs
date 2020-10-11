@@ -7,6 +7,17 @@ namespace MyPortfolio.Shared
 {
     public class Project
     {
+
+        public Project() { }
+
+        public Project(Project project)
+        {
+            this.Id = project.Id;
+            this.Title = project.Title;
+            this.Requirements = project.Requirements;
+            this.Slug = project.Slug;
+        }
+
         public const string LanguageSkill = "language";
         public const string PlatformSkill = "platform";
         public const string TechnologySkill = "technology";
@@ -27,5 +38,6 @@ namespace MyPortfolio.Shared
         [JsonPropertyName("completion_date")]
         public DateTime CompletionDate { get; set; }
         public List<ProjectLanguage> ProjectLanguages { get; set; }
+        public string Slug { get; set; }
     }
 }

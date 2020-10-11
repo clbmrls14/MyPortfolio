@@ -38,6 +38,11 @@ namespace MyPortfolio.WASM
             return await client.GetFromJsonAsync<IEnumerable<Technology>>("api/project/gettechnologies");
         }
 
+        public async Task<Project> GetProjectBySlugAsync(string slug)
+        {
+            return await client.GetFromJsonAsync<Project>($"api/project/{slug}");
+        }
+
         public async Task<Project> GetProjectByIdAsync(int id)
         {
             return await client.GetFromJsonAsync<Project>("api/project/getprojectbyid?id=" + id);

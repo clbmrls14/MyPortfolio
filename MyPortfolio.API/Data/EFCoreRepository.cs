@@ -21,7 +21,19 @@ namespace MyPortfolio.API.Data
 
         public async Task SaveProjectAsync(Project project)
         {
-            context.Projects.Add(project);
+            var newProject = await context.Projects.FindAsync(project.Id);
+            if (newProject == null)
+            {
+                newProject = new Project(project);
+                newProject.Slug = project.Title.ToSlug();
+                context.Projects.Add(newProject);
+            } else
+            {
+                newProject.Slug = newProject.Title.ToSlug();
+                newProject.Requirements = project.Requirements;
+                newProject.Title = project.Title;
+                context.Projects.Update(newProject);
+            }
             await context.SaveChangesAsync();
         }
 

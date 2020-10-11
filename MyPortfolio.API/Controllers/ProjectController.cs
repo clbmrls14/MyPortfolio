@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyPortfolio.Shared;
@@ -24,6 +23,18 @@ namespace MyPortfolio.API.Controllers
         // GET OBJECTS
         [HttpGet()]
         public async Task<List<Project>> Get() => await repository.Projects.ToListAsync();
+
+        [HttpGet("{slug}")]
+        public async Task<Project> GetProject(string slug)
+        {
+            try
+            {
+                return await repository.Projects.FirstOrDefaultAsync(p => p.Slug == slug);
+            } catch (Exception ex)
+            {
+                throw;
+            }
+        }
 
         [HttpGet("[action]")]
         public async Task<List<Language>> GetLanguages() => await repository.Languages.ToListAsync();

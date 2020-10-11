@@ -1,4 +1,4 @@
-﻿@page "/blog/{projectId:int}"
+﻿@page "/blog/{slug}"
 @inject MyPortfolio.WASM.ProjectApiService projectApi
 
 @using MyPortfolio.Shared
@@ -33,23 +33,34 @@
         </ul>
     </div>
     <br/>
-    <a href="edit/@projectId">Edit</a>
+    <a href="edit/@Slug">Edit</a>
 </div>
 
 @code {
     [Parameter]
-    public int projectId { get; set; }
+    public int ProjectId { get; set; }
+
+    [Parameter]
+    public string Slug { get; set; }
 
     private Project currentProject = new Project();
     private IEnumerable<Language> languages = new List<Language>();
     private IEnumerable<Platform> platforms = new List<Platform>();
     private IEnumerable<Technology> technologies = new List<Technology>();
 
+    async Task refreshAsync()
+    {
+        currentProject = await projectApi.GetProjectBySlugAsync(Slug);
+        languages = await projectApi.GetLanguagesByProjectAsync(ProjectId);
+        platforms = await projectApi.GetPlatformsByProjectAsync(ProjectId);
+        technologies = await projectApi.GetTechsByProjectAsync(ProjectId);
+    }
+
     protected override async Task OnInitializedAsync()
     {
-        currentProject = await projectApi.GetProjectByIdAsync(projectId);
-        languages = await projectApi.GetLanguagesByProjectAsync(projectId);
-        platforms = await projectApi.GetPlatformsByProjectAsync(projectId);
-        technologies = await projectApi.GetTechsByProjectAsync(projectId);
+        if (ProjectId == 0 && Slug == null)
+            return;
+
+        await refreshAsync();
     }
 }

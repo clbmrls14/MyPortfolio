@@ -11,6 +11,13 @@ namespace MyPortfolio.API.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> dbContextOptions) : base(dbContextOptions) { }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Project>()
+                .HasIndex(u => u.Slug)
+                .IsUnique();
+        }
+
         public DbSet<Project> Projects { get; set; }
         public DbSet<Language> Languages { get; set; }
         public DbSet<Platform> Platforms { get; set; }

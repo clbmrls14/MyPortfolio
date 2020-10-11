@@ -1,4 +1,4 @@
-﻿@page "/edit/{projectId:int}"
+﻿@page "/edit/{slug}"
 @inject MyPortfolio.WASM.ProjectApiService projectApi
 
 @using MyPortfolio.Shared
@@ -7,12 +7,15 @@
     <h3>Edit</h3>
     <div>
         <div class="input-field">
+            <label>Title: </label>
             <input @bind-value="editedTitle" />
         </div>
         <div class="input-field">
+            <label>Requirements: </label>
             <input @bind-value="editedRequirements" />
         </div>
         <div class="input-field">
+            <label>Description: </label>
             <textarea @bind="editedDescription" />
         </div>
         <div>
@@ -27,13 +30,16 @@
             <input @bind-value="newTech" placeholder="New Technology..." /><button @onclick="assignTechnology">Add Technology</button>
         </div>
 
-        <a href="blog/@projectId">Go Back</a>
+        <a href="blog/@Slug">Go Back</a>
 </div>
 
 
 @code {
     [Parameter]
-    public int projectId { get; set; }
+    public int ProjectId { get; set; }
+
+    [Parameter]
+    public string Slug { get; set; }
 
     private string editedTitle;
     private string editedRequirements;
@@ -51,20 +57,28 @@
         currentProject.Requirements = editedRequirements;
         currentProject.Description = editedDescription;
         await projectApi.EditProjectAsync(currentProject);
-        currentProject = await projectApi.GetProjectByIdAsync(projectId);
+        await refreshAsync();
     }
 
     private async Task assignLanguage() => await projectApi.AssignAsync(MyPortfolio.Shared.Project.LanguageSkill, currentProject.Id, newLang);
-    
+
     private async Task assignPlatform() => await projectApi.AssignAsync(MyPortfolio.Shared.Project.PlatformSkill, currentProject.Id, newPlat);
-    
+
     private async Task assignTechnology() => await projectApi.AssignAsync(MyPortfolio.Shared.Project.TechnologySkill, currentProject.Id, newTech);
+
+    async Task refreshAsync()
+    {
+        currentProject = await projectApi.GetProjectBySlugAsync(Slug);
+        editedTitle = currentProject.Title;
+        editedRequirements = currentProject.Requirements;
+        editedDescription = currentProject.Description;
+    }
 
     protected override async Task OnInitializedAsync()
     {
-        currentProject = await projectApi.GetProjectByIdAsync(projectId);
-        editedTitle = currentProject.Title;
-        editedRequirements = currentProject.Requirements;
-        editedDescription = currentProject.Requirements;
+        if (ProjectId == 0 && Slug == null)
+            return;
+
+        await refreshAsync();
     }
 }

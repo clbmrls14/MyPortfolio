@@ -33,7 +33,7 @@
         @foreach (var p in projects)
         {
             <li class="entry">
-                <a href="blog/@p.Id"><h4 style="color: #E7E6E6">@p.Title</h4></a>
+                <a href="blog/@p.Slug"><h4 style="color: #E7E6E6">@p.Title</h4></a>
                 <p>@p.CompletionDate</p>
                 <button @onclick="@(() => removeProject(p))" style="">Remove Project</button>
             </li>
