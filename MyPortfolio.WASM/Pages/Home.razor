@@ -29,16 +29,7 @@
 <!-- Begin Content -->
 <article>
     <h1>My Portfolio</h1>
-    <ul class="project-list">
-        @foreach (var p in projects)
-        {
-            <li class="entry">
-                <a href="blog/@p.Slug"><h4 style="color: #E7E6E6">@p.Title</h4></a>
-                <p>@p.CompletionDate</p>
-                <button @onclick="@(() => removeProject(p))" style="">Remove Project</button>
-            </li>
-        }
-    </ul>
+    <ListProjects ShowDetail="true" SkillType="None" SkillId="0" />
     <br />
 
 </article>
@@ -50,16 +41,6 @@
 <!-- End Footer-->
 
 @code {
-    private IEnumerable<Project> projects = new List<Project>();
 
-    private async Task removeProject(Project project)
-    {
-        await projectApi.RemoveProjectAsync(project);
-        projects = await projectApi.GetProjectsAsync();
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        projects = await projectApi.GetProjectsAsync();
-    }
+    
 }

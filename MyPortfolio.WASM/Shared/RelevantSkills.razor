@@ -1,0 +1,52 @@
+﻿@inject MyPortfolio.WASM.ProjectApiService projectApi
+@using MyPortfolio.Shared
+
+<h4>Languages</h4>
+<ul>
+    @foreach (var lang in languages)
+    {
+        <li><a href="languages/@lang.Slug">@lang.Name</a></li>
+    }
+</ul>
+<h4>Platforms</h4>
+<ul>
+    @foreach (var plat in platforms)
+    {
+        <li><a href="platforms/@plat.Slug">@plat.Name</a></li>
+    }
+</ul>
+<h4>Technologies</h4>
+<ul>
+    @foreach (var tech in technologies)
+    {
+        <li><a href="technologies/@tech.Slug">@tech.Name</a></li>
+    }
+</ul>
+
+@code {
+    [Parameter]
+    public int ProjectId { get; set; }
+
+    [Parameter]
+    public bool ShowAll { get; set; }
+
+    private IEnumerable<Language> languages = new List<Language>();
+    private IEnumerable<Platform> platforms = new List<Platform>();
+    private IEnumerable<Technology> technologies = new List<Technology>();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (ShowAll)
+        {
+            languages = await projectApi.GetLanguagesAsync();
+            platforms = await projectApi.GetPlatformsAsync();
+            technologies = await projectApi.GetTechnologiesAsync();
+        } else
+        {
+            languages = await projectApi.GetLanguagesByProjectAsync(ProjectId);
+            platforms = await projectApi.GetPlatformsByProjectAsync(ProjectId);
+            technologies = await projectApi.GetTechsByProjectAsync(ProjectId);
+        }
+
+    }
+}

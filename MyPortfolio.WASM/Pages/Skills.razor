@@ -5,27 +5,7 @@
 
 <div>
     <h3>My Skills</h3>
-    <h5>Languages</h5>
-    <ui>
-        @foreach (var lang in languages)
-        {
-            <li><a href="languages/@lang.Slug">@lang.Name</a></li>
-        }
-    </ui>
-    <h5>Platforms</h5>
-    <ui>
-        @foreach (var plat in platforms)
-        {
-            <li><a href="platforms/@plat.Slug">@plat.Name</a></li>
-        }
-    </ui>
-    <h5>Technologies</h5>
-    <ui>
-        @foreach (var tech in technologies)
-        {
-            <li><a href="technologies/@tech.Slug">@tech.Name</a></li>
-        }
-    </ui>
+    <RelevantSkills ProjectId="0" ShowAll="true" />
 </div>
 <!-- Begin Footer-->
 <div class="page-footer">

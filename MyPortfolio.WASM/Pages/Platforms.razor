@@ -6,27 +6,18 @@
 <div>
     <h2>@currentPlatform.Name</h2>
     <h4>Relevant Projects:</h4>
-    <ul>
-        @foreach (var p in projects)
-        {
-            <li><a href="blog/@p.Slug">@p.Title</a></li>
-        }
-    </ul>
+    <ListProjects ShowDetail="false" SkillType="Platform" SkillId="@currentPlatform.Id" />
 </div>
 
 @code {
-    [Parameter]
-    public int platformId { get; set; }
 
     [Parameter]
     public string Slug { get; set; }
 
     private Platform currentPlatform = new Platform();
-    private IEnumerable<Project> projects = new List<Project>();
 
     protected override async Task OnInitializedAsync()
     {
         currentPlatform = await projectApi.GetPlatformBySlugAsync(Slug);
-        projects = await projectApi.GetProjectsByPlatformAsync(currentPlatform.Id);
     }
 }

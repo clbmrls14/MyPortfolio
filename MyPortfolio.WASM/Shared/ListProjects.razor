@@ -1,0 +1,51 @@
+﻿@inject MyPortfolio.WASM.ProjectApiService projectApi
+@using MyPortfolio.Shared
+
+<ul class="project-list">
+    @foreach (var p in projects)
+    {
+    <li class="entry">
+        <a href="blog/@p.Slug"><h4 style="color: #E7E6E6">@p.Title</h4></a>
+        @if (ShowDetail)
+        {
+            <p>@p.CompletionDate</p>
+            <button @onclick="@(() => removeProject(p))" style="">Remove Project</button>
+        }
+    </li>
+    }
+</ul>
+
+@code {
+    [Parameter]
+    public bool ShowDetail { get; set; }
+
+    [Parameter]
+    public string SkillType { get; set; }
+
+    [Parameter]
+    public int SkillId { get; set; }
+
+    private IEnumerable<Project> projects = new List<Project>();
+
+    private async Task removeProject(Project project)
+    {
+        await projectApi.RemoveProjectAsync(project);
+        projects = await projectApi.GetProjectsAsync();
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (SkillType != "None")
+        {
+            if (SkillType == "Language")
+                projects = await projectApi.GetProjectsByLanguageAsync(SkillId);
+            if (SkillType == "Platform")
+                projects = await projectApi.GetProjectsByPlatformAsync(SkillId);
+            if (SkillType == "Technology")
+                projects = await projectApi.GetProjectsByTechnologyAsync(SkillId);
+        } else
+        {
+            projects = await projectApi.GetProjectsAsync();
+        }
+    }
+}

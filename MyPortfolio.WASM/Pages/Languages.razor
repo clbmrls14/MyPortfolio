@@ -6,12 +6,7 @@
 <div>
     <h2>@currentLanguage.Name</h2>
     <h4>Relevant Projects:</h4>
-    <ul>
-        @foreach (var p in projects)
-        {
-            <li><a href="blog/@p.Slug">@p.Title</a></li>
-        }
-    </ul>
+    <ListProjects ShowDetail="false" SkillType="Language" SkillId="@currentLanguage.Id" />
 </div>
 <!-- Begin Footer-->
 <div class="page-footer">
@@ -20,24 +15,20 @@
 <!-- End Footer-->
 
 @code {
-    [Parameter]
-    public int LanguageId { get; set; }
 
     [Parameter]
     public string Slug { get; set; }
 
     private Language currentLanguage = new Language();
-    private IEnumerable<Project> projects = new List<Project>();
 
     async Task refreshAsync()
     {
         currentLanguage = await projectApi.GetLanguageBySlugAsync(Slug);
-        projects = await projectApi.GetProjectsByLanguageAsync(currentLanguage.Id);
     }
 
     protected override async Task OnInitializedAsync()
     {
-        if (LanguageId == 0 && Slug == null)
+        if (Slug == null)
             return;
 
         await refreshAsync();

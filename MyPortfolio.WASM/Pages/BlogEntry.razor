@@ -4,61 +4,29 @@
 @using MyPortfolio.Shared
 
 <div>
-    <h1 class="blog-title">@currentProject.Title</h1>
-    <p>@currentProject.CompletionDate</p>
-    <p>@currentProject.Requirements</p>
-    <MarkdownView Content="@currentProject.Description" />
-
-    <div>
-        <h4>Languages</h4>
-        <ul>
-            @foreach (var lang in languages)
-            {
-                <li><a href="languages/@lang.Slug">@lang.Name</a></li>
-            }
-        </ul>
-        <h4>Platforms</h4>
-        <ul>
-            @foreach (var plat in platforms)
-            {
-                <li><a href="platforms/@plat.Slug">@plat.Name</a></li>
-            }
-        </ul>
-        <h4>Technologies</h4>
-        <ul>
-            @foreach (var tech in technologies)
-            {
-                <li><a href="technologies/@tech.Slug">@tech.Name</a></li>
-            }
-        </ul>
-    </div>
-    <br/>
+    <DisplayProject project="@currentProject" />
+    <RelevantSkills ProjectId="@currentProject.Id" ShowAll="false"/>
+    <br />
     <a href="edit/@Slug">Edit</a>
 </div>
 
 @code {
-    [Parameter]
-    public int ProjectId { get; set; }
+    
 
     [Parameter]
     public string Slug { get; set; }
 
     private Project currentProject = new Project();
-    private IEnumerable<Language> languages = new List<Language>();
-    private IEnumerable<Platform> platforms = new List<Platform>();
-    private IEnumerable<Technology> technologies = new List<Technology>();
+    
 
     async Task refreshAsync()
     {
         currentProject = await projectApi.GetProjectBySlugAsync(Slug);
-        languages = await projectApi.GetLanguagesByProjectAsync(currentProject.Id);
-        platforms = await projectApi.GetPlatformsByProjectAsync(currentProject.Id);
-        technologies = await projectApi.GetTechsByProjectAsync(currentProject.Id);
     }
 
     protected override async Task OnInitializedAsync()
     {
-        if (ProjectId == 0 && Slug == null)
+        if (Slug == null)
             return;
 
         await refreshAsync();

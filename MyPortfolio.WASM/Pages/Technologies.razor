@@ -6,28 +6,19 @@
 <div>
     <h2>Technologies</h2>
     <h4>Relevant Projects:</h4>
-    <ul>
-        @foreach (var p in projects)
-        {
-            <li><a href="blog/@p.Slug">@p.Title</a></li>
-        }
-    </ul>
+    <ListProjects ShowDetail="false" SkillType="Technology" SkillId="@currentTech.Id" />
 </div>
 
 @code {
-    [Parameter]
-    public int techId { get; set; }
 
     [Parameter]
     public string Slug { get; set; }
 
     private Technology currentTech = new Technology();
-    private IEnumerable<Project> projects = new List<Project>();
 
     protected override async Task OnInitializedAsync()
     {
         currentTech = await projectApi.GetTechnologyBySlugAsync(Slug);
-        projects = await projectApi.GetProjectsByTechnologyAsync(currentTech.Id);
     }
 
 }

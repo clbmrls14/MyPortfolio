@@ -1,0 +1,12 @@
+﻿@using MyPortfolio.Shared
+
+<h1 class="blog-title">@project.Title</h1>
+<p>@project.CompletionDate</p>
+<p>@project.Requirements</p>
+<MarkdownView Content="@project.Description" />
+
+@code {
+    [Parameter]
+    public Project project { get; set; }
+
+}
