@@ -4,25 +4,20 @@
 @using MyPortfolio.Shared
 
 <div>
-    <h3>NewProject</h3>
+    <h3 class="page-header">New Project</h3>
     <div class="input-field">
         <input @bind-value="newTitle" placeholder="Project Title" />
     </div>
     <div class="input-field">
         <input @bind-value="newRequirements" placeholder="Project Requirements" />
     </div>
-    <div>
-        <textarea @bind="newDescription" placeholder="Project Description" />
+    <div class="input-field">
+        <textarea @bind="newDescription" placeholder="Project Description" class="description" />
     </div>
     <div class="input-field">
         <button @onclick="addProject">Add Project</button>
     </div>
 </div>
-<!-- Begin Footer-->
-<div class="page-footer">
-    <p>&copy; Caleb Morales, 2020</p>
-</div>
-<!-- End Footer-->
 
 @code {
     private string newTitle;

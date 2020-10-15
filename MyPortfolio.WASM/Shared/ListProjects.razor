@@ -5,10 +5,10 @@
     @foreach (var p in projects)
     {
     <li class="entry">
-        <a href="blog/@p.Slug"><h4 style="color: #E7E6E6">@p.Title</h4></a>
+        <a href="blog/@p.Slug"><h4>@p.Title</h4></a>
         @if (ShowDetail)
         {
-            <p>@p.CompletionDate</p>
+            <p>@p.CompletionDate.ToShortDateString()</p>
             <button @onclick="@(() => removeProject(p))" style="">Remove Project</button>
         }
     </li>

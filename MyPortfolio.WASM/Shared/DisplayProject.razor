@@ -1,7 +1,7 @@
 ﻿@using MyPortfolio.Shared
 
-<h1 class="blog-title">@project.Title</h1>
-<p>@project.CompletionDate</p>
+<h1 class="page-header">@project.Title</h1>
+<p>@project.CompletionDate.ToLongDateString()</p>
 <p>@project.Requirements</p>
 <MarkdownView Content="@project.Description" />
 

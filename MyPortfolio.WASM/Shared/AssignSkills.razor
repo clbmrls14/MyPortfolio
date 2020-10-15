@@ -1,0 +1,31 @@
+﻿@inject MyPortfolio.WASM.ProjectApiService projectApi
+
+<h4>Assign Skill</h4>
+<div class="input-field">
+    <input @bind-value="newLang" placeholder="New Language..." />
+    <button @onclick="assignLanguage">Add Language</button>
+</div>
+<div class="input-field">
+    <input @bind-value="newPlat" placeholder="New Platform..." />
+    <button @onclick="assignPlatform">Add Platform</button>
+</div>
+<div class="input-field">
+    <input @bind-value="newTech" placeholder="New Technology..." />
+    <button @onclick="assignTechnology">Add Technology</button>
+</div>
+
+
+@code {
+    [Parameter]
+    public int ProjectId { get; set; }
+
+    private string newLang;
+    private string newPlat;
+    private string newTech;
+
+    private async Task assignLanguage() => await projectApi.AssignAsync(MyPortfolio.Shared.Project.LanguageSkill, ProjectId, newLang);
+
+    private async Task assignPlatform() => await projectApi.AssignAsync(MyPortfolio.Shared.Project.PlatformSkill, ProjectId, newPlat);
+
+    private async Task assignTechnology() => await projectApi.AssignAsync(MyPortfolio.Shared.Project.TechnologySkill, ProjectId, newTech);
+}

@@ -1,0 +1,40 @@
+﻿@inject MyPortfolio.WASM.ProjectApiService projectApi
+@using MyPortfolio.Shared
+
+<div class="input-field">
+    <input @bind-value="editedTitle" />
+</div>
+<div class="input-field">
+    <input @bind-value="editedRequirements" />
+</div>
+<div class="input-field">
+    <textarea @bind="editedDescription" class="description" />
+</div>
+<div>
+    <button @onclick="editProject">Submit Changes</button>
+</div>
+
+@code {
+    [Parameter]
+    public Project Project { get; set; }
+
+    private string editedTitle;
+    private string editedRequirements;
+    private string editedDescription;
+
+    private async Task editProject()
+    {
+        Project.Title = editedTitle;
+        Project.Requirements = editedRequirements;
+        Project.Description = editedDescription;
+        await projectApi.EditProjectAsync(Project);
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        editedTitle = Project.Title;
+        editedRequirements = Project.Requirements;
+        editedDescription = Project.Description;
+    }
+
+}
