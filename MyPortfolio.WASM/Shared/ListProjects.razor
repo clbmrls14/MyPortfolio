@@ -1,4 +1,5 @@
 ﻿@inject MyPortfolio.WASM.ProjectApiService projectApi
+@using Polly; 
 @using MyPortfolio.Shared
 
 <ul class="project-list">
@@ -9,7 +10,7 @@
         @if (ShowDetail)
         {
             <p>@p.CompletionDate.ToShortDateString()</p>
-            <button @onclick="@(() => removeProject(p))" style="">Remove Project</button>
+            <button class="simple-btn" @onclick="@(() => removeProject(p))">Remove Project</button>
         }
     </li>
     }
@@ -33,19 +34,32 @@
         projects = await projectApi.GetProjectsAsync();
     }
 
+    private async Task GetProjects()
+    {
+        await Polly.Policy
+            .Handle<TimeoutException>()
+            .WaitAndRetryForever(retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)))
+            .Execute(async () =>
+            {
+                System.Diagnostics.Debug.WriteLine("Trying to make the call again...");
+                if (SkillType != "None")
+                {
+                    if (SkillType == "Language")
+                        projects = await projectApi.GetProjectsByLanguageAsync(SkillId);
+                    if (SkillType == "Platform")
+                        projects = await projectApi.GetProjectsByPlatformAsync(SkillId);
+                    if (SkillType == "Technology")
+                        projects = await projectApi.GetProjectsByTechnologyAsync(SkillId);
+                }
+                else
+                {
+                    projects = await projectApi.GetProjectsAsync();
+                }
+            });
+    }
+
     protected override async Task OnParametersSetAsync()
     {
-        if (SkillType != "None")
-        {
-            if (SkillType == "Language")
-                projects = await projectApi.GetProjectsByLanguageAsync(SkillId);
-            if (SkillType == "Platform")
-                projects = await projectApi.GetProjectsByPlatformAsync(SkillId);
-            if (SkillType == "Technology")
-                projects = await projectApi.GetProjectsByTechnologyAsync(SkillId);
-        } else
-        {
-            projects = await projectApi.GetProjectsAsync();
-        }
+        await GetProjects();
     }
 }
