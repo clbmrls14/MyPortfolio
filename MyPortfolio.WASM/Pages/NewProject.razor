@@ -42,6 +42,7 @@
             CompletionDate = DateTime.Now
         };
         await projectApi.AddProjectAsync(project);
+
         addedProject = newTitle;
         showPopUp = true;
         newTitle = "";

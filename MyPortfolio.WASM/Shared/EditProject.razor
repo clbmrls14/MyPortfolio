@@ -13,6 +13,10 @@
 <div>
     <button class="simple-btn" @onclick="editProject">Submit Changes</button>
 </div>
+@if (showPopUp)
+{
+    <h5 style="text-align: center; font-style:italic;">@editedTitle Edited Successfully</h5>
+}
 
 @code {
     [Parameter]
@@ -22,12 +26,15 @@
     private string editedRequirements;
     private string editedDescription;
 
+    private bool showPopUp = false;
+
     private async Task editProject()
     {
         Project.Title = editedTitle;
         Project.Requirements = editedRequirements;
         Project.Description = editedDescription;
         await projectApi.EditProjectAsync(Project);
+        showPopUp = true;
     }
 
     protected override async Task OnParametersSetAsync()
