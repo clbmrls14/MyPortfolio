@@ -17,12 +17,20 @@
     <div class="input-field">
         <button class="simple-btn" @onclick="addProject">Add Project</button>
     </div>
+    @if (showPopUp)
+    {
+        <h5 style="text-align: center; font-style:italic;">@addedProject Added Successfully</h5>
+    }
+
 </div>
 
 @code {
     private string newTitle;
     private string newRequirements;
     private string newDescription;
+
+    private bool showPopUp = false;
+    private string addedProject = "";
 
     private async Task addProject()
     {
@@ -34,6 +42,11 @@
             CompletionDate = DateTime.Now
         };
         await projectApi.AddProjectAsync(project);
+        addedProject = newTitle;
+        showPopUp = true;
+        newTitle = "";
+        newRequirements = "";
+        newDescription = "";
     }
 
 }

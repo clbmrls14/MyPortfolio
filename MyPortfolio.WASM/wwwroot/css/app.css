@@ -8,11 +8,11 @@ body {
 .my-header {
     width: 100%;
     border: 5px double #457B9D;
+   margin-bottom: 3em;
 }
 
 table {
     width: 100%;
-    
 }
 
 .name {

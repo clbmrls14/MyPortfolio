@@ -16,6 +16,7 @@ namespace MyPortfolio.Shared
             this.Title = project.Title;
             this.Requirements = project.Requirements;
             this.Description = project.Description;
+            this.CompletionDate = DateTime.Now;
             this.Slug = project.Slug;
         }
 
