@@ -1,4 +1,6 @@
 ﻿@page "/newproject"
+@attribute [Authorize]
+
 @inject MyPortfolio.WASM.ProjectApiService projectApi
 
 @using MyPortfolio.Shared

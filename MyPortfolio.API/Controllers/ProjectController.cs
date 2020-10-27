@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyPortfolio.Shared;
 using MyPortfolio.API.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MyPortfolio.API.Controllers
 {
@@ -106,15 +107,19 @@ namespace MyPortfolio.API.Controllers
             });
         }
 
+        [Authorize]
         [HttpPost()]
         public async Task Post(Project project) => await repository.SaveProjectAsync(project);
 
+        [Authorize]
         [HttpPost("[action]")]
         public async Task RemoveProject(Project project) => await repository.RemoveProjectAsync(project);
 
+        [Authorize]
         [HttpPost("[action]")]
         public async Task EditProject(Project project) => await repository.EditProjectAsync(project);
 
+        [Authorize]
         [HttpPost("[action]")]
         public async Task Assign(AssignRequest assignRequest) => await repository.AssignSkillAsync(assignRequest);
     }

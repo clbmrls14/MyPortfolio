@@ -1,37 +1,50 @@
 ﻿@page "/"
 
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration config
 <!-- Begin Header -->
 <header class="my-header">
     <table>
-            <tr>
-                <td class="name">
-                    <h1 class="first_name">Caleb</h1>
-                </td>
-                <td class="contact_info">
-                    <h5 class="first_name">clbmrls014@gmail.com</h5>
-                </td>
-            </tr>
-            <tr>
-                <td class="name">
-                    <h1 class="last_name">Morales</h1>
-                </td>
-                <td class="contact_info">
-                    <h5 class="linkedin contact_info" style="font-weight: 400;"><a href="https://www.linkedin.com/in/caleb-morales-415882199/">Connect with me on LinkedIn!</a></h5>
-                </td>
-            </tr>
-        </table>
+        <tr>
+            <td class="name">
+                <h1 class="first_name">Caleb</h1>
+            </td>
+            <td class="contact_info">
+                <h5 class="first_name">clbmrls014@gmail.com</h5>
+            </td>
+        </tr>
+        <tr>
+            <td class="name">
+                <h1 class="last_name">Morales</h1>
+            </td>
+            <td class="contact_info">
+                <h5 class="linkedin contact_info" style="font-weight: 400;"><a href="https://www.linkedin.com/in/caleb-morales-415882199/">Connect with me on LinkedIn!</a></h5>
+            </td>
+        </tr>
+    </table>
 </header>
 <!-- End Header -->
 <!-- Begin Content -->
 <article>
     <h2 style="padding: 0em 0em 0.5em 2em;"><u>My Portfolio</u></h2>
+
     <ListProjects ShowDetail="true" SkillType="None" SkillId="0" />
+
     <br />
 
 </article>
+
+@*<AuthorizeView Roles="admin">
+    <Authorized>
+        <p>You're in the admin group!</p>
+    </Authorized>
+    <NotAuthorized>
+        <p>NOT AN ADMIN!</p>
+    </NotAuthorized>
+</AuthorizeView>*@
 <!-- End Content -->
 
 @code {
 
-    
+
 }

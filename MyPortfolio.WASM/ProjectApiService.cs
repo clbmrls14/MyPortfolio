@@ -1,4 +1,5 @@
-﻿using MyPortfolio.Shared;
+﻿using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+using MyPortfolio.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,12 @@ namespace MyPortfolio.WASM
     public class ProjectApiService
     {
         private readonly HttpClient client;
+        private readonly IAccessTokenProvider tokenProvider;
 
-        public ProjectApiService(HttpClient client)
+        public ProjectApiService(HttpClient client, IAccessTokenProvider tokenProvider)
         {
             this.client = client;
+            this.tokenProvider = tokenProvider;
         }
 
         public async Task<IEnumerable<Project>> GetProjectsAsync()

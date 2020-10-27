@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MyPortfolio.API.Data;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace MyPortfolio.API
 {
@@ -40,6 +41,21 @@ namespace MyPortfolio.API
                                .AllowAnyMethod()
                                .AllowAnyHeader();
                     });
+            });
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = "http://clbmrlsportfolio.us.auth0.com/";
+                options.Audience = "http://myportfolioapi.com";
+                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                {
+                    NameClaimType = "Roles",
+                    RoleClaimType = "http://schemas.clbmrlsportfolio.com/roles"
+                };
             });
 
             services.AddSwaggerGen(options =>
