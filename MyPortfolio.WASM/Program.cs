@@ -30,6 +30,11 @@ namespace MyPortfolio.WASM
 
             var baseAddress = builder.Configuration["HttpClientBaseAddress"];
             builder.Services.AddHttpClient<ProjectApiService>(hc => hc.BaseAddress = new Uri(baseAddress))
+                //.AddHttpMessageHandler<Auth0AuthorizationMessageHandler>()
+                .SetHandlerLifetime(TimeSpan.FromMinutes(5))
+                .AddPolicyHandler(GetRetryPolicy());
+
+            builder.Services.AddHttpClient<AuthenticatedProjectApiService>(hc => hc.BaseAddress = new Uri(baseAddress))
                 .AddHttpMessageHandler<Auth0AuthorizationMessageHandler>()
                 .SetHandlerLifetime(TimeSpan.FromMinutes(5))
                 .AddPolicyHandler(GetRetryPolicy());

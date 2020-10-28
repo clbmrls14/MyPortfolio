@@ -2,6 +2,7 @@
 @attribute [Authorize]
 
 @inject MyPortfolio.WASM.ProjectApiService projectApi
+@inject MyPortfolio.WASM.AuthenticatedProjectApiService authenticatedProjectApi
 
 @using MyPortfolio.Shared
 
@@ -43,7 +44,7 @@
             Description = newDescription,
             CompletionDate = DateTime.Now
         };
-        await projectApi.AddProjectAsync(project);
+        await authenticatedProjectApi.AddProjectAsync(project);
 
         addedProject = newTitle;
         showPopUp = true;

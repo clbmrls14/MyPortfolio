@@ -13,12 +13,10 @@ namespace MyPortfolio.WASM
     public class ProjectApiService
     {
         private readonly HttpClient client;
-        private readonly IAccessTokenProvider tokenProvider;
 
-        public ProjectApiService(HttpClient client, IAccessTokenProvider tokenProvider)
+        public ProjectApiService(HttpClient client)
         {
             this.client = client;
-            this.tokenProvider = tokenProvider;
         }
 
         public async Task<IEnumerable<Project>> GetProjectsAsync()
@@ -79,32 +77,6 @@ namespace MyPortfolio.WASM
         public async Task<Technology> GetTechnologyByIdAsync(int id)
         {
             return await client.GetFromJsonAsync<Technology>("api/project/gettechnologybyid?id=" + id);
-        }
-
-        public async Task AddProjectAsync(Project project)
-        {
-            await client.PostAsJsonAsync("api/project", project);
-        }
-
-        public async Task RemoveProjectAsync(Project project)
-        {
-            await client.PostAsJsonAsync("api/project/removeproject", project);
-        }
-
-        public async Task EditProjectAsync(Project project)
-        {
-            await client.PostAsJsonAsync("api/project/editproject", project);
-        }
-
-        public async Task AssignAsync(string skillType, int projectId, string newName)
-        {
-            var assignBody = new AssignRequest
-            {
-                SkillType = skillType,
-                Name = newName,
-                ProjectId = projectId
-            };
-            await client.PostAsJsonAsync($"api/project/assign/", assignBody);
         }
 
         public async Task<IEnumerable<Language>> GetLanguagesByProjectAsync(int id)

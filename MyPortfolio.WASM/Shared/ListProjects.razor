@@ -1,20 +1,21 @@
 ﻿@using Microsoft.Extensions.Http
 @*@inject ITypedHttpClientFactory<ProjectApiService> clientFactory*@
 @inject ProjectApiService projectApi
-@using Polly; 
+@inject MyPortfolio.WASM.AuthenticatedProjectApiService authenticatedProjectApi
+@using Polly;
 @using MyPortfolio.Shared
 
 <ul class="project-list">
     @foreach (var p in projects)
     {
-    <li class="entry">
-        <a href="blog/@p.Slug"><h4>@p.Title</h4></a>
-        @if (ShowDetail)
-        {
-            <p>@p.CompletionDate.ToShortDateString()</p>
-            <button class="simple-btn" @onclick="@(() => removeProject(p))">Remove Project</button>
-        }
-    </li>
+        <li class="entry">
+            <a href="blog/@p.Slug"><h4>@p.Title</h4></a>
+            @if (ShowDetail)
+            {
+                <p>@p.CompletionDate.ToShortDateString()</p>
+                <button class="simple-btn" @onclick="@(() => removeProject(p))">Remove Project</button>
+            }
+        </li>
     }
 </ul>
 
@@ -32,8 +33,8 @@
 
     private async Task removeProject(Project project)
     {
-//        var projectApi = clientFactory.CreateClient("withToken");
-        await projectApi.RemoveProjectAsync(project);
+        //        var projectApi = clientFactory.CreateClient("withToken");
+        await authenticatedProjectApi.RemoveProjectAsync(project);
         projects = await projectApi.GetProjectsAsync();
     }
 

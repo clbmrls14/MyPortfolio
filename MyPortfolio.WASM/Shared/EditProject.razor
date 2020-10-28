@@ -1,4 +1,6 @@
 ﻿@inject MyPortfolio.WASM.ProjectApiService projectApi
+@inject MyPortfolio.WASM.AuthenticatedProjectApiService authenticatedProjectApi
+
 @using MyPortfolio.Shared
 
 <div class="input-field">
@@ -33,7 +35,7 @@
         Project.Title = editedTitle;
         Project.Requirements = editedRequirements;
         Project.Description = editedDescription;
-        await projectApi.EditProjectAsync(Project);
+        await authenticatedProjectApi.EditProjectAsync(Project);
         showPopUp = true;
     }
 
