@@ -1,4 +1,6 @@
-﻿@inject MyPortfolio.WASM.ProjectApiService projectApi
+﻿@using Microsoft.Extensions.Http
+@*@inject ITypedHttpClientFactory<ProjectApiService> clientFactory*@
+@inject ProjectApiService projectApi
 @using Polly; 
 @using MyPortfolio.Shared
 
@@ -30,32 +32,27 @@
 
     private async Task removeProject(Project project)
     {
+//        var projectApi = clientFactory.CreateClient("withToken");
         await projectApi.RemoveProjectAsync(project);
         projects = await projectApi.GetProjectsAsync();
     }
 
     private async Task GetProjects()
     {
-        await Polly.Policy
-            .Handle<TimeoutException>()
-            .WaitAndRetryForever(retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)))
-            .Execute(async () =>
-            {
-                System.Diagnostics.Debug.WriteLine("Trying to make the call again...");
-                if (SkillType != "None")
-                {
-                    if (SkillType == "Language")
-                        projects = await projectApi.GetProjectsByLanguageAsync(SkillId);
-                    if (SkillType == "Platform")
-                        projects = await projectApi.GetProjectsByPlatformAsync(SkillId);
-                    if (SkillType == "Technology")
-                        projects = await projectApi.GetProjectsByTechnologyAsync(SkillId);
-                }
-                else
-                {
-                    projects = await projectApi.GetProjectsAsync();
-                }
-            });
+        System.Diagnostics.Debug.WriteLine("Trying to make the call again...");
+        if (SkillType != "None")
+        {
+            if (SkillType == "Language")
+                projects = await projectApi.GetProjectsByLanguageAsync(SkillId);
+            if (SkillType == "Platform")
+                projects = await projectApi.GetProjectsByPlatformAsync(SkillId);
+            if (SkillType == "Technology")
+                projects = await projectApi.GetProjectsByTechnologyAsync(SkillId);
+        }
+        else
+        {
+            projects = await projectApi.GetProjectsAsync();
+        }
     }
 
     protected override async Task OnParametersSetAsync()

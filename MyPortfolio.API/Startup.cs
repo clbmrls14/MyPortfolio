@@ -49,12 +49,13 @@ namespace MyPortfolio.API
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
             {
-                options.Authority = "http://clbmrlsportfolio.us.auth0.com/";
-                options.Audience = "http://myportfolioapi.com";
+                options.Authority = Configuration["Auth0:Authority"];
+                options.Audience = Configuration["Auth0:ApiIdentifier"];
+                //options.RequireHttpsMetadata = false;
                 options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
                 {
                     NameClaimType = "Roles",
-                    RoleClaimType = "http://schemas.clbmrlsportfolio.com/roles"
+                    RoleClaimType = "https://schemas.clbmrlsportfolio.com/roles"
                 };
             });
 
@@ -73,6 +74,8 @@ namespace MyPortfolio.API
             }
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
