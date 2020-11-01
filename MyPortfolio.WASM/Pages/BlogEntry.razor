@@ -7,7 +7,11 @@
     <DisplayProject project="@currentProject" />
     <RelevantSkills ProjectId="@currentProject.Id" ShowAll="false"/>
     <br />
-    <a href="edit/@Slug">Edit</a>
+    <AuthorizeView>
+        <Authorized>
+            <a href="edit/@Slug">Edit</a>
+        </Authorized>
+    </AuthorizeView>
 </div>
 
 @code {

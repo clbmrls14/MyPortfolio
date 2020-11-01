@@ -13,7 +13,11 @@
             @if (ShowDetail)
             {
                 <p>@p.CompletionDate.ToShortDateString()</p>
-                <button class="simple-btn" @onclick="@(() => removeProject(p))">Remove Project</button>
+                <AuthorizeView>
+                    <Authorized>
+                        <button class="simple-btn" @onclick="@(() => removeProject(p))">Remove Project</button>
+                    </Authorized>
+                </AuthorizeView>
             }
         </li>
     }

@@ -1,10 +1,11 @@
 ﻿@page "/edit/{slug}"
+@attribute [Authorize]
 @inject MyPortfolio.WASM.ProjectApiService projectApi
 
 @using MyPortfolio.Shared
 
 <h3 class="page-header">Edit</h3>
-<EditProject Project="@currentProject"/>
+<EditProject Project="@currentProject" />
 <br />
 <AssignSkills ProjectId="@currentProject.Id" />
 <a href="blog/@Slug">Go Back</a>

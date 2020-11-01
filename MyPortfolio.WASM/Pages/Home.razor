@@ -1,7 +1,10 @@
 ﻿@page "/"
 
-@using Microsoft.Extensions.Configuration
+@inject AuthenticationStateProvider authStateProvider
 @inject IConfiguration config
+@using MyPortfolio.Shared
+@using Microsoft.Extensions.Configuration
+
 <!-- Begin Header -->
 <header class="my-header">
     <table>
@@ -28,24 +31,38 @@
 <article>
     <h2 style="padding: 0em 0em 0.5em 2em;"><u>My Portfolio</u></h2>
 
-    
+
     <ListProjects ShowDetail="true" SkillType="None" SkillId="0" />
 
     <br />
 
 </article>
 
-<AuthorizeView Roles="Admin">
+@*<AuthorizeView Roles="admin">
     <Authorized>
         <p>You're in the admin group!</p>
     </Authorized>
     <NotAuthorized>
         <p>NOT AN ADMIN!</p>
     </NotAuthorized>
-</AuthorizeView>
-<!-- End Content -->
+</AuthorizeView>*@
+
+@if (isAdmin)
+    {
+        <h1>You're an admin!</h1> }
+    else
+    {
+        <h3>Still not an admin. :(</h3>}
 
 @code {
+    bool isAdmin;
 
-
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await authStateProvider.GetAuthenticationStateAsync();
+        var roles = from c in authState.User.Claims
+                    where c.Type == "https://schemas.clbmrlsportfolio.com/roles"
+                    select c.Value;
+        isAdmin = roles.Any(r => r.Contains("admin"));
+    }
 }

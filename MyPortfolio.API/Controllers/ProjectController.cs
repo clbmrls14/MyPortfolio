@@ -107,20 +107,24 @@ namespace MyPortfolio.API.Controllers
             });
         }
 
-        [Authorize]
         [HttpPost()]
+        [Authorize]
+        //[Authorize(Roles = Roles.Admin)]
         public async Task Post(Project project) => await repository.SaveProjectAsync(project);
 
-        [Authorize]
         [HttpPost("[action]")]
+        [Authorize]
+        //[Authorize(Roles = Roles.Admin)]
         public async Task RemoveProject(Project project) => await repository.RemoveProjectAsync(project);
 
-        [Authorize]
         [HttpPost("[action]")]
+        [Authorize]
+        //[Authorize(Roles = Roles.Admin)]
         public async Task EditProject(Project project) => await repository.EditProjectAsync(project);
 
-        [Authorize]
         [HttpPost("[action]")]
+        [Authorize]
+        //[Authorize(Roles = Roles.Admin)]
         public async Task Assign(AssignRequest assignRequest) => await repository.AssignSkillAsync(assignRequest);
     }
 }
